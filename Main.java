@@ -4,6 +4,7 @@ import java.io.IOException;
 
 class WrongStudentName extends Exception { }
 class WrongAge extends Exception { }
+class WrongDateOfBirth extends Exception { }
 
 class Main {
     public static Scanner scan = new Scanner(System.in);
@@ -23,7 +24,10 @@ class Main {
             } catch(WrongStudentName e) {
                 System.out.println("Bledne imie studenta!");
             } catch(WrongAge e) {
-                System.out.println("Zły wiek!");
+                System.out.println("Zly wiek!");
+            }
+             catch(WrongDateOfBirth e) {
+                System.out.println("Zla data!");
             }
           
         }
@@ -38,7 +42,7 @@ class Main {
         return scan.nextInt();
     }
 
-    public static String ReadName() throws WrongStudentName, WrongAge {
+    public static String ReadName() throws WrongStudentName, WrongAge, WrongDateOfBirth {
         scan.nextLine();
         System.out.println("Podaj imie: ");
         String name = scan.nextLine();
@@ -48,15 +52,28 @@ class Main {
         return name;
     }
 
-    public static void exercise1() throws IOException, WrongStudentName, WrongAge {
+    public static void exercise1() throws IOException, WrongStudentName, WrongAge, WrongDateOfBirth {
         var name = ReadName();
         System.out.println("Podaj wiek: ");
         var age = scan.nextInt();
         scan.nextLine();
       if(age>100 || age<0)
             throw new WrongAge();
-        System.out.println("Podaj date urodzenia DD-MM-YYYY");
+         System.out.println("Podaj dzien");
+        var day = scan.nextInt();
+        if(day>31 || day<1)
+            throw new WrongDateOfBirth();
+        System.out.println("Podaj miesiac");
+        var month = scan.nextInt();
+      if(month>12 || month<1)
+            throw new WrongDateOfBirth();
+        System.out.println("Podaj rok");
+        var year = scan.nextInt();
+      if(year>2021 || year<1)
+            throw new WrongDateOfBirth();
+        System.out.println("Czy potwierdzasz dane? Nacisnij enter.");
         var date = scan.nextLine();
+        date = day+"-"+month+"-"+year;
         (new Service1()).addStudent(new Student(name, age, date));
     }
 
