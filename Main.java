@@ -23,7 +23,7 @@ class Main {
             } catch(WrongStudentName e) {
                 System.out.println("Bledne imie studenta!");
             } catch(WrongAge e) {
-                System.out.println("Zly wiek!");
+                System.out.println("Zły wiek!");
             }
           
         }
