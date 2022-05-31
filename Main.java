@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;
 
 class WrongStudentName extends Exception { }
+class WrongAge extends Exception { }
 
 class Main {
     public static Scanner scan = new Scanner(System.in);
@@ -20,21 +21,24 @@ class Main {
             } catch(IOException e) {
 
             } catch(WrongStudentName e) {
-                System.out.println("Błędne imie studenta!");
+                System.out.println("Bledne imie studenta!");
+            } catch(WrongAge e) {
+                System.out.println("Zly wiek!");
             }
+          
         }
     }
 
     public static int menu() {
-        System.out.println("Wciśnij:");
-        System.out.println("1 - aby dodać studenta");
-        System.out.println("2 - aby wypisać wszystkich studentów");
-        System.out.println("3 - aby wyszukać studenta po imieniu");
-        System.out.println("0 - aby wyjść z programu");
+        System.out.println("Wcisnij:");
+        System.out.println("1 - aby dodac studenta");
+        System.out.println("2 - aby wypisac wszystkich studentow");
+        System.out.println("3 - aby wyszukac studenta po imieniu");
+        System.out.println("0 - aby wyjsc z programu");
         return scan.nextInt();
     }
 
-    public static String ReadName() throws WrongStudentName {
+    public static String ReadName() throws WrongStudentName, WrongAge {
         scan.nextLine();
         System.out.println("Podaj imie: ");
         String name = scan.nextLine();
@@ -44,12 +48,14 @@ class Main {
         return name;
     }
 
-    public static void exercise1() throws IOException, WrongStudentName {
+    public static void exercise1() throws IOException, WrongStudentName, WrongAge {
         var name = ReadName();
         System.out.println("Podaj wiek: ");
         var age = scan.nextInt();
         scan.nextLine();
-        System.out.println("Podaj datę urodzenia DD-MM-YYY");
+      if(age>100 || age<0)
+            throw new WrongAge();
+        System.out.println("Podaj date urodzenia DD-MM-YYYY");
         var date = scan.nextLine();
         (new Service1()).addStudent(new Student(name, age, date));
     }
